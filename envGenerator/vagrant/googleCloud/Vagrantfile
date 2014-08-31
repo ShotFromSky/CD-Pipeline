@@ -1,0 +1,27 @@
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  
+  config.vm.box = "gce"
+  config.vm.provision "shell", path: "../sonarWithPostgreSQL.sh"
+  
+  config.vm.provider :google do |google, override|
+    google.google_project_id = "just-site-684"
+    google.google_client_email = "866246534971-g9lmcnhv5tegpmbf545q0hsb5col90lj@developer.gserviceaccount.com"
+    google.google_key_location = "/home/sky/dev/vagrant/credential/Automation-f55555e2a2f3.p12"
+
+    google.zone = "us-central1-f"
+
+    google.zone_config "us-central1-f" do |zone1f|
+        zone1f.name = "testing-vagrant2"
+        zone1f.image = "debian-7-wheezy-v20140814"
+        zone1f.machine_type = "g1-small"
+        zone1f.zone = "us-central1-f"
+#        zone1f.metadata = {'custom' => 'metadata', 'testing' => 'foobarbaz'}
+    end
+
+    override.ssh.username = "sky"
+    override.ssh.private_key_path = "/home/sky/.ssh/id_rsa"
+  end
+end
