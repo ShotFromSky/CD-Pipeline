@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.provision "shell" do |s|
     s.path = "~/dev/ProvisionScript/debian/debian-7.6-oracleJdk.sh"
-    s.args = "sky 7" 
+    s.args = "sky 8" 
   end
   config.vm.provision "shell" do |s|
     s.path = "~/dev/ProvisionScript/debian/debian-7.6-postgreSql.sh"
@@ -33,11 +33,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     google.zone = "us-central1-f"
 
     google.zone_config "us-central1-f" do |zone1f|
-        zone1f.name = "testing-machine7"
-        zone1f.image = "debian-7-wheezy-v20140814"
-        zone1f.machine_type = "g1-small"
+        zone1f.name = "hs-ci"
+        zone1f.image = "debian-7-wheezy-v20140924"
+        zone1f.machine_type = "n1-standard-1"
         zone1f.zone = "us-central1-f"
-#        zone1f.metadata = {'custom' => 'metadata', 'testing' => 'foobarbaz'}
     end
 
     override.ssh.username = "sky"
